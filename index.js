@@ -1,13 +1,18 @@
-function getFloat(prompt){
+function getString(prompt){
     console.log(prompt + " :");
     var ans = readline.prompt();
+    return ans;
+}
+
+function getFloat(prompt){
+    var ans = getString(prompt);
     ans = parseFloat(ans);
     return ans;
 }
 
-function getString(prompt){
-    console.log(prompt + " :");
-    var ans = readline.prompt();
+function getInt(prompt){
+    var ans = getString(prompt);
+    ans = parseInt(ans);
     return ans;
 }
 
@@ -26,6 +31,7 @@ function applyOperator(a, b, op){
             break;
         case "*":
             c = a * b;
+            break;
         default:
             console.log("Unsupported operator")
     }
@@ -36,20 +42,29 @@ function applyOperator(a, b, op){
 
 function main(){
     while (true){
-        var op = getString("Operator");
-        
-        var a = getFloat("Number A");
-        var b = getFloat("Number B");  
+        var operator = getString("Operator");
 
-        var c = applyOperator(a,b,op);
-        console.log("A " + op + " B = " + String(c));
+        var num_operands = getInt("Number of operands");
+        var operand_array = Array(num_operands);
+
+        for(var i = 0; i < num_operands; i++){
+            var operand_i = getFloat("Number " + String(i + 1));
+            operand_array[i] = operand_i;
+        }
+        
+        var result = operand_array[0]
+        for (var i = 1; i < num_operands; i++){
+            result = applyOperator(result, operand_array[i], operator)
+        }
+
+        console.log("Result = " + String(result));
     }
 }
 
 
 const readline = require('readline-sync');
 console.log("Welcome to the calculator!");
-console.log("--------------------------");
+console.log("==========================");
 main();
 
 

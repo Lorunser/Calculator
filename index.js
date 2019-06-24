@@ -1,3 +1,5 @@
+const readline = require('readline-sync');
+
 function getString(prompt){
     console.log(prompt + " :");
     var ans = readline.prompt();
@@ -39,10 +41,8 @@ function applyOperator(a, b, op){
     return c;
 }
 
-
-function main(){
-    while (true){
-        var operator = getString("Operator");
+function performOneCalculation(){
+    var operator = getString("Operator");
 
         var num_operands = getInt("Number of operands");
         var operand_array = Array(num_operands);
@@ -58,13 +58,20 @@ function main(){
         }
 
         console.log("Result = " + String(result));
+}
+
+function printWelcomeMessage(){
+    console.log("Welcome to the calculator!");
+    console.log("==========================");
+}
+
+function main(){
+    printWelcomeMessage();
+    while (true){
+        performOneCalculation();
     }
 }
 
-
-const readline = require('readline-sync');
-console.log("Welcome to the calculator!");
-console.log("==========================");
 main();
 
 

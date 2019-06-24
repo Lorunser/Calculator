@@ -1,5 +1,10 @@
+//#region constant declarations
 const readline = require('readline-sync');
+const ARITHMETIC_MODE = '1';
+const VOWEL_COUNTING_MODE = '2';
+//#endregion
 
+//#region input methods
 function getString(prompt){
     console.log(prompt + " :");
     var ans = readline.prompt();
@@ -25,6 +30,7 @@ function getInt(prompt){
     ans = parseInt(ans);
     return ans;
 }
+//#endregion
 
 function applyOperator(a, b, op){
     var c = 0;
@@ -49,7 +55,7 @@ function applyOperator(a, b, op){
     return c;
 }
 
-function performOneCalculation(){
+function performArithmetic(){
     var operator = getString("Operator");
 
         var num_operands = getInt("Number of operands");
@@ -68,17 +74,54 @@ function performOneCalculation(){
         console.log("Result = " + String(result));
 }
 
+function performVowelCounting(){
+    var text = getString("Input string");
+    var vowels = {'A' : 0, 'E' : 0, 'I' : 0, 'O' : 0, 'U' : 0};
+
+    for(c of text){
+        var upperChar = c.toUpperCase();
+        if(vowels[upperChar] != null){
+            vowels[upperChar]++;
+        }
+    }
+
+    console.log(vowels);
+}
+
 function printWelcomeMessage(){
     console.log("Welcome to the calculator!");
     console.log("==========================");
 }
 
+function getMenuChoice(){
+    //function for printing and retrieving menu option
+    console.log("Calculator Mode?");
+    console.log(`${ARITHMETIC_MODE}) Arithmetic`);
+    console.log(`${VOWEL_COUNTING_MODE}) Vowel Counting`)
+    return readline.prompt();
+}
+
 function main(){
+
     printWelcomeMessage();
+    var menuChoice;
+
     while (true){
-        performOneCalculation();
+        menuChoice = getMenuChoice();
+        switch(menuChoice){
+            case ARITHMETIC_MODE:
+                performArithmetic();
+                break;
+            case VOWEL_COUNTING_MODE:
+                performVowelCounting();
+                break;
+            default:
+                console.log("Incorrect choice. Try again")
+        }
+        console.log();
     }
 }
+
 
 main();
 

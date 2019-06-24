@@ -1,10 +1,11 @@
 //imports
 const userInput = require('./userInput');
+var operator = "";
 
-exports.applyOperator = function(a, b, op){
+function applyOperator(a, b){
     var c = 0;
 
-    switch(op){
+    switch(operator){
         case "+":
             c = a + b;
             break;
@@ -24,8 +25,12 @@ exports.applyOperator = function(a, b, op){
     return c;
 }
 
+function isNotZero(value){
+    return value != 0;
+}
+
 exports.performArithmetic = function(){
-    var operator = userInput.getString("Operator");
+    operator = userInput.getString("Operator");
 
     var num_operands = userInput.getInt("Number of operands");
     var operand_array = Array(num_operands);
@@ -35,10 +40,11 @@ exports.performArithmetic = function(){
         operand_array[i] = operand_i;
     }
     
-    var result = operand_array[0]
-    for (var i = 1; i < num_operands; i++){
-        result = exports.applyOperator(result, operand_array[i], operator)
+    //remove zeros if division
+    if (operator == "/"){
+        operand_array = operand_array.filter(isNotZero);
     }
 
+    var result = operand_array.reduce(applyOperator);
     console.log("Result = " + String(result));
 }

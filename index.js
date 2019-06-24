@@ -8,12 +8,20 @@ function getString(prompt){
 
 function getFloat(prompt){
     var ans = getString(prompt);
-    ans = parseFloat(ans);
-    return ans;
+    
+    if (isNaN(ans)){
+        console.log("Not a Number. Try again");
+        return getFloat(prompt);
+    }
+
+    else{
+        ans = parseFloat(ans);
+        return ans;
+    }
 }
 
 function getInt(prompt){
-    var ans = getString(prompt);
+    var ans = getFloat(prompt);
     ans = parseInt(ans);
     return ans;
 }

@@ -29,7 +29,7 @@ function isNotZero(value){
     return value != 0;
 }
 
-exports.performArithmetic = function(){
+function setValidOperator(){
     var validOperator = false;
 
     while (!validOperator){
@@ -43,7 +43,10 @@ exports.performArithmetic = function(){
             console.log(e)
         }
     }
+}
 
+exports.performArithmetic = function(){
+    setValidOperator();
 
     var num_operands = userInput.getInt("Number of operands");
     var operand_array = Array(num_operands);

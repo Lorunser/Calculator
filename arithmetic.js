@@ -19,7 +19,7 @@ function applyOperator(a, b){
             c = a * b;
             break;
         default:
-            console.log("Unsupported operator")
+            throw "Unsupported Operator";
     }
 
     return c;
@@ -30,7 +30,20 @@ function isNotZero(value){
 }
 
 exports.performArithmetic = function(){
-    operator = userInput.getString("Operator");
+    var validOperator = false;
+
+    while (!validOperator){
+        operator = userInput.getString("Operator");
+        
+        try{
+            applyOperator(1,1);
+            validOperator = true;
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
+
 
     var num_operands = userInput.getInt("Number of operands");
     var operand_array = Array(num_operands);
